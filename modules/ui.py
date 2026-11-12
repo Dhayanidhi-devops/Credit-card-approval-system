@@ -47,7 +47,10 @@ def metric_card(label: str, value: str, hint: str | None = None) -> None:
 
 
 def disclaimer_banner() -> None:
-    st.info(DISCLAIMER)
+    st.markdown(
+        f'<div class="cw-banner"><strong>Academic demo only.</strong> {DISCLAIMER}</div>',
+        unsafe_allow_html=True,
+    )
 
 
 def section_title(title: str, description: str | None = None) -> None:

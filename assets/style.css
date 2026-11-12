@@ -1,40 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap');
 
 :root {
-  --cw-navy: #071526;
-  --cw-navy-2: #0B1F3A;
-  --cw-panel: #102744;
-  --cw-panel-2: #143356;
-  --cw-blue: #1F6FEB;
-  --cw-blue-soft: #58A6FF;
+  --cw-bg: #07111F;
+  --cw-navy: #0B1F3A;
+  --cw-panel: #122C4D;
+  --cw-panel-soft: rgba(18, 44, 77, 0.92);
+  --cw-blue: #3B82F6;
+  --cw-blue-soft: #93C5FD;
   --cw-teal: #2DD4BF;
-  --cw-text: #E8EEF7;
-  --cw-muted: #9DB0C9;
-  --cw-border: rgba(148, 163, 184, 0.22);
-  --cw-approved: #10B981;
+  --cw-text: #EEF3FA;
+  --cw-muted: #A8B9D1;
+  --cw-border: rgba(148, 163, 184, 0.28);
+  --cw-approved: #34D399;
   --cw-declined: #F87171;
+  --cw-warn: #FBBF24;
+  --cw-info-bg: rgba(59, 130, 246, 0.16);
+  --cw-success-bg: rgba(16, 185, 129, 0.16);
+  --cw-warning-bg: rgba(251, 191, 36, 0.16);
+  --cw-error-bg: rgba(248, 113, 113, 0.16);
 }
 
 html, body, [class*="css"] {
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
-  color: var(--cw-text);
+  font-family: "Source Sans 3", "Segoe UI", sans-serif;
 }
 
 .stApp {
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(31, 111, 235, 0.28), transparent 55%),
-    radial-gradient(900px 500px at 100% 0%, rgba(45, 212, 191, 0.12), transparent 45%),
-    linear-gradient(180deg, #06101F 0%, #0A1A31 45%, #0B2038 100%);
+    radial-gradient(900px 420px at 8% -8%, rgba(59, 130, 246, 0.22), transparent 55%),
+    radial-gradient(700px 380px at 96% 0%, rgba(45, 212, 191, 0.10), transparent 50%),
+    linear-gradient(180deg, #060E1A 0%, #081526 42%, #0A1A30 100%);
   color: var(--cw-text);
 }
 
-/* Sidebar */
+/* Keep default content readable without nuking alert contrast */
+.stApp > header {
+  background: transparent;
+}
+
 section[data-testid="stSidebar"] {
   background: linear-gradient(180deg, #061325 0%, #0A1C34 100%);
   border-right: 1px solid var(--cw-border);
 }
 
-section[data-testid="stSidebar"] * {
+section[data-testid="stSidebar"] .stMarkdown p,
+section[data-testid="stSidebar"] .stCaption,
+section[data-testid="stSidebar"] label {
   color: var(--cw-text) !important;
 }
 
@@ -42,26 +52,26 @@ section[data-testid="stSidebar"] * {
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  margin: 0.25rem 0 1.1rem 0;
+  margin: 0.15rem 0 0.85rem 0;
 }
 
 .cw-logo {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   display: grid;
   place-items: center;
   font-family: Manrope, sans-serif;
   font-weight: 800;
   letter-spacing: 0.04em;
-  color: white;
-  background: linear-gradient(145deg, #1F6FEB, #0EA5E9 55%, #2DD4BF);
-  box-shadow: 0 10px 30px rgba(31, 111, 235, 0.35);
+  color: #FFFFFF;
+  background: linear-gradient(145deg, #2563EB, #0EA5E9 58%, #14B8A6);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.32);
 }
 
 .cw-brand-title {
   font-family: Manrope, sans-serif;
-  font-size: 1.55rem;
+  font-size: 1.45rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: #F8FAFC;
@@ -70,47 +80,55 @@ section[data-testid="stSidebar"] * {
 
 .cw-brand-subtitle {
   color: var(--cw-muted);
-  font-size: 0.92rem;
-  margin-top: 0.15rem;
+  font-size: 0.9rem;
+  margin-top: 0.18rem;
 }
 
 .cw-card {
-  background: linear-gradient(180deg, rgba(20, 51, 86, 0.92), rgba(16, 39, 68, 0.92));
+  background: linear-gradient(180deg, rgba(22, 52, 88, 0.95), rgba(14, 36, 64, 0.95));
   border: 1px solid var(--cw-border);
-  border-radius: 16px;
-  padding: 1rem 1.05rem;
-  min-height: 104px;
-  margin-bottom: 0.75rem;
+  border-radius: 14px;
+  padding: 0.95rem 1rem;
+  min-height: 96px;
+  margin-bottom: 0.7rem;
 }
 
 .cw-card-label {
   color: var(--cw-muted);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .cw-card-value {
   font-family: Manrope, sans-serif;
-  font-size: 1.55rem;
+  font-size: 1.45rem;
   font-weight: 750;
-  margin-top: 0.35rem;
+  margin-top: 0.3rem;
   color: #F8FAFC;
 }
 
 .cw-card-hint {
   color: var(--cw-blue-soft);
   font-size: 0.8rem;
-  margin-top: 0.35rem;
+  margin-top: 0.3rem;
 }
 
-.cw-panel {
-  background: rgba(16, 39, 68, 0.72);
-  border: 1px solid var(--cw-border);
-  border-radius: 18px;
-  padding: 1rem 1.1rem 0.4rem 1.1rem;
-  margin-bottom: 1rem;
+.cw-banner {
+  background: var(--cw-info-bg);
+  border: 1px solid rgba(147, 197, 253, 0.35);
+  border-left: 4px solid #60A5FA;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  color: #DBEAFE;
+  margin: 0.35rem 0 1rem 0;
+  line-height: 1.45;
+  font-size: 0.94rem;
+}
+
+.cw-banner strong {
+  color: #EFF6FF;
 }
 
 h1, h2, h3, h4 {
@@ -119,61 +137,96 @@ h1, h2, h3, h4 {
   color: #F8FAFC !important;
 }
 
-.stMarkdown, .stCaption, label, p {
-  color: var(--cw-text);
-}
-
 div[data-testid="stMetric"] {
-  background: linear-gradient(180deg, rgba(20, 51, 86, 0.92), rgba(16, 39, 68, 0.92));
+  background: linear-gradient(180deg, rgba(22, 52, 88, 0.95), rgba(14, 36, 64, 0.95));
   border: 1px solid var(--cw-border);
-  border-radius: 16px;
-  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  padding: 0.8rem 0.95rem;
 }
 
 div[data-testid="stMetric"] label {
   color: var(--cw-muted) !important;
 }
 
-/* Buttons */
+div[data-testid="stMetric"] [data-testid="stMetricValue"] {
+  color: #F8FAFC !important;
+}
+
+/* Alerts: force readable contrast on dark theme */
+div[data-testid="stAlert"] {
+  border-radius: 12px !important;
+  border: 1px solid var(--cw-border) !important;
+}
+
+div[data-testid="stAlert"] [data-testid="stMarkdownContainer"] p,
+div[data-testid="stAlert"] [data-testid="stMarkdownContainer"] span,
+div[data-testid="stAlert"] p,
+div[data-testid="stAlert"] {
+  color: #F8FAFC !important;
+}
+
+div[data-testid="stAlert"] {
+  background: var(--cw-panel-soft) !important;
+}
+
+/* Prefer semantic tint if Streamlit exposes kind via style/class */
+.stAlert [data-baseweb="notification"] {
+  background: transparent !important;
+}
+
+/* File uploader / inputs */
+[data-testid="stFileUploader"] {
+  background: rgba(16, 39, 68, 0.75);
+  border: 1px dashed rgba(147, 197, 253, 0.35);
+  border-radius: 14px;
+  padding: 0.55rem 0.7rem;
+}
+
+[data-testid="stFileUploader"] section,
+[data-testid="stFileUploader"] small,
+[data-testid="stFileUploader"] span,
+[data-testid="stFileUploader"] p {
+  color: var(--cw-text) !important;
+}
+
+[data-testid="stFileUploaderDropzone"] {
+  background: rgba(8, 20, 38, 0.55) !important;
+  border: none !important;
+}
+
+div[data-testid="stTextInput"] input,
+div[data-testid="stNumberInput"] input,
+div[data-testid="stSelectbox"] div[data-baseweb="select"] > div,
+textarea {
+  background-color: #0B1C33 !important;
+  color: #F8FAFC !important;
+  border: 1px solid var(--cw-border) !important;
+  border-radius: 10px !important;
+}
+
 .stButton > button {
   border-radius: 10px;
-  font-weight: 600;
-  padding: 0.45rem 1rem;
-}
-
-section[data-testid="stSidebar"] .stButton > button[kind="secondary"],
-section[data-testid="stSidebar"] .stButton > button[data-testid="baseButton-secondary"] {
-  background: rgba(16, 39, 68, 0.85);
-  color: #E8EEF7;
-  border: 1px solid rgba(148, 163, 184, 0.22);
-}
-
-section[data-testid="stSidebar"] .stButton > button[kind="primary"],
-section[data-testid="stSidebar"] .stButton > button[data-testid="baseButton-primary"] {
-  background: linear-gradient(135deg, #1F6FEB, #2563EB);
-  color: white;
-  border: none;
+  font-weight: 650;
+  padding: 0.48rem 1rem;
 }
 
 .stButton > button[kind="primary"],
 .stButton > button[data-testid="baseButton-primary"] {
-  background: linear-gradient(135deg, #1F6FEB, #2563EB);
-  color: white;
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  color: #FFFFFF;
   border: none;
 }
 
-.stButton > button:hover {
-  border-color: rgba(88, 166, 255, 0.55);
-  color: white;
+.stButton > button[kind="secondary"],
+.stButton > button[data-testid="baseButton-secondary"] {
+  background: rgba(16, 39, 68, 0.9);
+  color: #E8EEF7;
+  border: 1px solid var(--cw-border);
 }
 
-/* Dataframes / inputs */
-div[data-testid="stDataFrame"],
-div[data-baseweb="select"],
-div[data-testid="stTextInput"] input,
-div[data-testid="stNumberInput"] input,
-textarea {
-  border-radius: 10px !important;
+.stButton > button:hover {
+  border-color: rgba(147, 197, 253, 0.55);
+  color: #FFFFFF;
 }
 
 hr {
@@ -182,21 +235,21 @@ hr {
 
 .cw-badge {
   display: inline-block;
-  padding: 0.2rem 0.55rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.78rem;
+  font-weight: 750;
   letter-spacing: 0.04em;
 }
 
 .cw-badge-approved {
-  background: rgba(16, 185, 129, 0.18);
+  background: rgba(52, 211, 153, 0.16);
   color: #6EE7B7;
-  border: 1px solid rgba(16, 185, 129, 0.35);
+  border: 1px solid rgba(52, 211, 153, 0.35);
 }
 
 .cw-badge-declined {
-  background: rgba(248, 113, 113, 0.15);
+  background: rgba(248, 113, 113, 0.14);
   color: #FCA5A5;
   border: 1px solid rgba(248, 113, 113, 0.35);
 }
@@ -204,5 +257,24 @@ hr {
 .cw-footer-note {
   color: var(--cw-muted);
   font-size: 0.82rem;
-  margin-top: 1.5rem;
+  margin-top: 1.4rem;
+}
+
+/* Sidebar status chips */
+.cw-status-ok {
+  background: var(--cw-success-bg);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  color: #D1FAE5;
+  border-radius: 10px;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.86rem;
+}
+
+.cw-status-warn {
+  background: var(--cw-warning-bg);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  color: #FEF3C7;
+  border-radius: 10px;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.86rem;
 }

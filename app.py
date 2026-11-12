@@ -108,15 +108,21 @@ nav = st.navigation(
 with st.sidebar:
     render_brand_header()
     st.markdown("---")
-    st.caption("Dataset status")
+    st.caption("DATASET STATUS")
     if st.session_state.dataset is not None:
         profile = st.session_state.dataset_profile
-        st.success(f"Loaded: {st.session_state.dataset_source}")
-        st.caption(f"{profile.n_rows} rows · {profile.n_cols} columns")
-        if profile.target_column:
-            st.caption(f"Target: {profile.target_column}")
+        st.markdown(
+            f'<div class="cw-status-ok">Loaded: {st.session_state.dataset_source}<br>'
+            f"{profile.n_rows} rows · {profile.n_cols} columns"
+            + (f"<br>Target: {profile.target_column}" if profile.target_column else "")
+            + "</div>",
+            unsafe_allow_html=True,
+        )
     else:
-        st.warning("No dataset loaded")
+        st.markdown(
+            '<div class="cw-status-warn">No dataset loaded</div>',
+            unsafe_allow_html=True,
+        )
         if st.session_state.get("dataset_load_error"):
             st.error(st.session_state.dataset_load_error)
 
@@ -127,7 +133,7 @@ with st.sidebar:
         )
 
     st.markdown("---")
-    st.caption(DISCLAIMER)
+    st.caption("Academic synthetic-data demonstration. Not for real lending decisions.")
 
 render_brand_header(subtitle="B.Tech AIML Academic Demonstration · Synthetic Data")
 nav.run()
