@@ -78,9 +78,17 @@ def render() -> None:
     def _progress(message: str) -> None:
         progress_box.info(message)
 
-    col_a, col_b = st.columns(2)
-    train_all = col_a.button("Train Selected / All Models", type="primary")
-    clear_models = col_b.button("Clear Trained Models")
+    train_all = st.button(
+        "Train Selected / All Models",
+        type="primary",
+        width="stretch",
+        key="train_models_button",
+    )
+    clear_models = st.button(
+        "Clear Trained Models",
+        width="stretch",
+        key="clear_models_button",
+    )
 
     if clear_models:
         st.session_state.training_bundle = None
@@ -91,25 +99,38 @@ def render() -> None:
         if not selected_models:
             st.error("Select at least one model to train.")
         else:
-            with st.spinner("Training models..."):
-                try:
-                    bundle = train_models(
-                        df=df,
-                        profile=profile,
-                        model_keys=selected_models,
-                        metric_for_best=metric,
-                        tune=tune,
-                        run_cv=run_cv,
-                        progress=_progress,
-                    )
-                    st.session_state.training_bundle = bundle
-                    st.session_state.active_model_key = bundle.best_model_name
-                    progress_box.success(
+            status = st.status("Training models...", expanded=True)
+            try:
+                def _progress_status(message: str) -> None:
+                    status.write(message)
+                    _progress(message)
+
+                bundle = train_models(
+                    df=df,
+                    profile=profile,
+                    model_keys=selected_models,
+                    metric_for_best=metric,
+                    tune=tune,
+                    run_cv=run_cv,
+                    progress=_progress_status,
+                )
+                st.session_state.training_bundle = bundle
+                st.session_state.active_model_key = bundle.best_model_name
+                status.update(
+                    label=(
                         f"Training complete. Best model by {METRIC_OPTIONS[metric]}: "
                         f"{MODEL_DISPLAY_NAMES.get(bundle.best_model_name, bundle.best_model_name)}"
-                    )
-                except Exception as exc:
-                    st.error(f"Training failed: {exc}")
+                    ),
+                    state="complete",
+                )
+                progress_box.success(
+                    f"Training complete. Best model by {METRIC_OPTIONS[metric]}: "
+                    f"{MODEL_DISPLAY_NAMES.get(bundle.best_model_name, bundle.best_model_name)}"
+                )
+                st.rerun()
+            except Exception as exc:
+                status.update(label=f"Training failed: {exc}", state="error")
+                st.error(f"Training failed: {exc}")
 
     bundle = st.session_state.get("training_bundle")
     if bundle is None or not bundle.results:

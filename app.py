@@ -1,7 +1,7 @@
 """
 CreditWise Studio — Intelligent Credit Card Approval Prediction System
 
-Main Streamlit entrypoint with custom FinTech sidebar navigation.
+Main Streamlit entrypoint with branded sidebar navigation via st.navigation.
 """
 
 from __future__ import annotations
@@ -19,15 +19,6 @@ if str(ROOT) not in sys.path:
 from modules.config import DEFAULT_DATASET_PATH, DISCLAIMER
 from modules.data_loader import load_default_dataset, profile_dataset
 from modules.ui import ensure_session_defaults, inject_styles, render_brand_header
-from views import (
-    about,
-    applicant_prediction,
-    dashboard,
-    dataset_explorer,
-    model_laboratory,
-    model_performance,
-    prediction_history,
-)
 
 st.set_page_config(
     page_title="CreditWise Studio",
@@ -63,29 +54,59 @@ def bootstrap_default_dataset() -> None:
 
 bootstrap_default_dataset()
 
-PAGES = {
-    "Dashboard": dashboard.render,
-    "Applicant Prediction": applicant_prediction.render,
-    "Model Laboratory": model_laboratory.render,
-    "Dataset Explorer": dataset_explorer.render,
-    "Model Performance": model_performance.render,
-    "Prediction History": prediction_history.render,
-    "About & Methodology": about.render,
-}
+# File-based pages keep unique URL paths and work cleanly with Streamlit AppTest.
+nav = st.navigation(
+    {
+        "CreditWise Studio": [
+            st.Page(
+                "page_scripts/dashboard.py",
+                title="Dashboard",
+                icon=":material/dashboard:",
+                default=True,
+                url_path="dashboard",
+            ),
+            st.Page(
+                "page_scripts/applicant_prediction.py",
+                title="Applicant Prediction",
+                icon=":material/person_search:",
+                url_path="applicant-prediction",
+            ),
+            st.Page(
+                "page_scripts/model_laboratory.py",
+                title="Model Laboratory",
+                icon=":material/science:",
+                url_path="model-laboratory",
+            ),
+            st.Page(
+                "page_scripts/dataset_explorer.py",
+                title="Dataset Explorer",
+                icon=":material/table_view:",
+                url_path="dataset-explorer",
+            ),
+            st.Page(
+                "page_scripts/model_performance.py",
+                title="Model Performance",
+                icon=":material/monitoring:",
+                url_path="model-performance",
+            ),
+            st.Page(
+                "page_scripts/prediction_history.py",
+                title="Prediction History",
+                icon=":material/history:",
+                url_path="prediction-history",
+            ),
+            st.Page(
+                "page_scripts/about.py",
+                title="About & Methodology",
+                icon=":material/info:",
+                url_path="about",
+            ),
+        ]
+    }
+)
 
 with st.sidebar:
     render_brand_header()
-    st.markdown("---")
-    page = st.radio(
-        "Navigation",
-        options=list(PAGES.keys()),
-        index=list(PAGES.keys()).index(st.session_state.selected_page)
-        if st.session_state.selected_page in PAGES
-        else 0,
-        label_visibility="collapsed",
-    )
-    st.session_state.selected_page = page
-
     st.markdown("---")
     st.caption("Dataset status")
     if st.session_state.dataset is not None:
@@ -109,7 +130,7 @@ with st.sidebar:
     st.caption(DISCLAIMER)
 
 render_brand_header(subtitle="B.Tech AIML Academic Demonstration · Synthetic Data")
-PAGES[page]()
+nav.run()
 
 st.markdown(
     '<div class="cw-footer-note">CreditWise Studio · Predictions are academic model estimates only.</div>',

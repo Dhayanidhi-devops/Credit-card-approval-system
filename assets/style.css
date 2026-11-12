@@ -136,18 +136,35 @@ div[data-testid="stMetric"] label {
 
 /* Buttons */
 .stButton > button {
-  background: linear-gradient(135deg, #1F6FEB, #2563EB);
-  color: white;
-  border: none;
   border-radius: 10px;
   font-weight: 600;
   padding: 0.45rem 1rem;
 }
 
-.stButton > button:hover {
-  background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+section[data-testid="stSidebar"] .stButton > button[kind="secondary"],
+section[data-testid="stSidebar"] .stButton > button[data-testid="baseButton-secondary"] {
+  background: rgba(16, 39, 68, 0.85);
+  color: #E8EEF7;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+section[data-testid="stSidebar"] .stButton > button[kind="primary"],
+section[data-testid="stSidebar"] .stButton > button[data-testid="baseButton-primary"] {
+  background: linear-gradient(135deg, #1F6FEB, #2563EB);
   color: white;
   border: none;
+}
+
+.stButton > button[kind="primary"],
+.stButton > button[data-testid="baseButton-primary"] {
+  background: linear-gradient(135deg, #1F6FEB, #2563EB);
+  color: white;
+  border: none;
+}
+
+.stButton > button:hover {
+  border-color: rgba(88, 166, 255, 0.55);
+  color: white;
 }
 
 /* Dataframes / inputs */

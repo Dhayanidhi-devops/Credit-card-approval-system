@@ -49,7 +49,7 @@ CreditWise Studio is a complete academic FinTech web application for predicting 
 
 ```text
 CreditWise_Studio/
-├── app.py                 # Streamlit entrypoint + sidebar navigation
+├── app.py                 # Streamlit entrypoint + st.navigation
 ├── requirements.txt
 ├── README.md
 ├── .gitignore
@@ -58,27 +58,14 @@ CreditWise_Studio/
 ├── models/                # Saved Joblib artifacts
 ├── assets/
 │   └── style.css
-├── modules/
-│   ├── config.py
-│   ├── data_loader.py
-│   ├── preprocessing.py
-│   ├── model_training.py
-│   ├── evaluation.py
-│   ├── prediction.py
-│   ├── explainability.py
-│   ├── report_generator.py
-│   └── ui.py
-└── views/                 # Page renderers (custom nav; avoids Streamlit pages/ clash)
-    ├── dashboard.py
-    ├── applicant_prediction.py
-    ├── model_laboratory.py
-    ├── dataset_explorer.py
-    ├── model_performance.py
-    ├── prediction_history.py
-    └── about.py
+├── modules/               # Data, ML, explainability, reports
+├── views/                 # Page render logic
+├── page_scripts/          # Thin Streamlit page entrypoints for st.navigation
+└── scripts/
+    └── smoke_apptest.py   # AppTest smoke checks
 ```
 
-`views/` is used instead of Streamlit’s automatic `pages/` folder so the app can keep a single branded sidebar and navigation flow.
+`st.navigation` + `page_scripts/` replaces Streamlit’s automatic `pages/` folder so the app keeps one branded sidebar while preserving reliable multipage URL routes (`/dashboard`, `/model-laboratory`, etc.).
 
 ---
 
