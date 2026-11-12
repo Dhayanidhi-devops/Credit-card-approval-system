@@ -1,0 +1,42 @@
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Local artifacts (keep folder via .gitkeep)
+models/*.joblib
+models/*.pkl
+models/*.json
+!models/.gitkeep
+
+# Notebooks / temp
+*.ipynb_checkpoints/
+tmp/
+temp/
+*.log
+
+# Test exports
+exports/
+prediction_reports/
